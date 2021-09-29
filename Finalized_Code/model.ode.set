@@ -1,0 +1,227 @@
+## Set file for model.ode on Fri Aug 16 14:49:34 2019
+4   Number of equations and auxiliaries
+25   Number of parameters
+# Numerical stuff
+1    nout
+40    nullcline mesh
+3   Runge-Kutta
+1000  total
+0.1  DeltaT
+0  T0
+0  Transient
+10000000  Bound
+1e-12  DtMin
+1  DtMax
+0.0001  Tolerance
+0.001  Abs. Tolerance
+0  Max Delay
+100   Eigenvector iterates
+0.001  Eigenvector tolerance
+0.001  Newton tolerance
+0  Poincare plane
+1e-05  Boundary value tolerance
+1e-05  Boundary value epsilon
+20   Boundary value iterates
+0   Poincare None
+1   Poincare variable
+1   Poincare sign
+0   Stop on Section
+0   Delay flag
+1000.000000000159  Current time
+1000.000000000159  Last Time
+1   MyStart
+1   INFLAG
+# Delays
+0.0
+0.0
+0.0
+0.0
+# Bndry conds
+0
+0
+0
+0
+# Old ICs
+-6.07  B
+0.0981821474616465  M
+0.3050041364561939  A
+49.92852742645632  EPS
+# Ending  ICs
+-6.070359904323529  B
+0.09818214746165685  M
+0.3050041364561939  A
+49.92852742646429  EPS
+# Parameters
+2.252939818620023  k1
+0.5  c1
+128  Bsource
+0.08  nu1
+0.12  nu2
+0.05  muM
+0.04  a1
+0.05  muA
+0.01  kM
+0.2  kB
+0.02  kepsilon
+48  kAMEps
+0.6  kBL
+0.005  sL
+0.002  muL
+0.01  kLB
+0.0125  sA
+24  tau
+44.3872493024671  kA
+318.233194718556  f
+0.0128450756926777  k5
+1.98056838468433  B_infy
+0.033101761350186  k_D
+0.0117742436505237  Bs
+1  Th
+# Graphics
+0.7071097251469876  rm
+-0.4999999999826661  rm
+0.4999958366025516  rm
+0.7071038372138505  rm
+0.5000041633974484  rm
+-0.4999999999826661  rm
+0  rm
+0.7071038372138505  rm
+0.7071097251469876  rm
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+-1000   
+1000   
+0    
+0   3DFlag
+1   Timeflag
+0   Colorflag
+0   Type
+1  color scale
+0   minscale
+1000   xmax
+0   xmin
+-6.070000171661377   ymax
+-6.070359706878662   ymin
+12   zmax
+-12   zmin
+500   
+0.002   
+-6.07017993927002   
+5562.737400530504   
+0   
+0.08333333333333333   
+45   Theta
+45   Phi
+0    xshft
+0    yshft
+0    zshft
+0   xlo
+-6.070359706878662   ylo
+0   
+0   
+1000   xhi
+-6.070000171661377   yhi
+1000   
+10   
+# Transpose variables etc
+B
+2   n columns
+1   n rows
+1   row skip
+1   col skip
+1   row 0
+# Coupling stuff for H funs
+0
+0
+0
+0
+# Array plot stuff
+
+1   NCols
+0   Row 1
+50   NRows
+8   RowSkip
+0  Zmin
+1  Zmax
+# Torus information 
+0    Torus flag 1=ON
+6.283185307179586  Torus period
+# Range information
+k1
+-1   eq-range stab col
+0   shoot flag 1=on
+10   eq-range steps
+0  eq_range low
+1  eq_range high
+B
+B
+20   Range steps
+0   Cycle color 1=on
+1   Reset data 1=on
+1   Use old I.C.s 1=yes
+0  Par1 low
+0  Par2 low
+1  Par1 high
+1  Par2 high
+k1
+0   BVP side
+0   color cycle flag 1=on
+10   BVP range steps
+0  BVP range low
+1  BVP range high
+RHS etc ...
+dB/dT=D(T)+K1*B*(1-(B/(B_INFY/BS)))-((K5*B*M)/(1+KA*A))-(KBL*SL*B)/(MUL+KLB*B*BS)
+dM/dT=(NU1*(KM*M+KB*C1*BS*B+KEPSILON*EPS))/((NU2+KM*M+KB*C1*BS*B+KEPSILON*EPS)*(1+KA*A))-MUM*M
+dA/dT=SA+(A1*(M+KAMEPS*EPS)/((1+M+KAMEPS*EPS)*(1+KA*A)))-MUA*A
+dEPS/dT=((-EPS)/TAU)+MAX(F*M-TH,0)/(1+KA*A)
+
+User-defined functions:
+D(T) = 0  

@@ -1,0 +1,45 @@
+# XPP\AUTO file
+
+# Parameters as of 10/18/2019
+par c1=0.5, k1=0.5, Bsource=248
+par nu1=0.08, nu2=0.12, muM=0.05, a1=0.04, muA=0.05
+par kM=0.01, kB=0.2, kepsilon=0.02, kAMEps=48, kBL=0.6
+par sL=0.005, muL=0.002, kLB=0.01, sA=0.0125, tau=24
+# These two were fit once upon a time but I changed this to yield
+# more dependence of bacteria on macrophages.  Large enough kA*A
+# /small enough k5 effectively crushes all of that dependence.
+# This particular kA was chosen so that inhibition is approx 75%
+# at max threshold.  This still differs from Reynolds as there
+# is a significantly higher inhibition at background.
+par kA=6.6670616337051979983, k5=1.8
+# Decreasing f and increasing B_infy seems to restore septic simulations
+par f=70.2044014868692, B_infy=5.00236539614239, Bs=0.0122299977145702
+# Readjust to try and restore septic simulations
+# par f=70.2044014868692, B_infy=5.00736776153853, Bs=0.0122299977145702
+# k_D is technically fit but has no effect on steady state analysis
+par k_D=0.0296455037295029, 
+# T is reserved for time, so using 'Th' for threshold
+par Th=1
+
+# Dosing function
+# D(t)=k_D*Bsource*exp(-k_D*t)
+D(t)=0
+
+#Equations
+b'=D(t)+k1*b*(1-(b/(B_infy/Bs)))-((k5*b*m)/(1+kA*a))-(kBL*sL*b)/(muL+kLB*b*Bs)
+m'=(nu1*(kM*m+kB*c1*Bs*b+kepsilon*eps))/((nu2+kM*m+kB*c1*Bs*b+kepsilon*eps)*(1+kA*a))-muM*m
+a'=sA+(a1*(m+kAMEps*eps)/((1+m+kAMEps*eps)*(1+kA*a)))-muA*a
+eps'=((-eps)/tau)+max(f*m-Th,0)/(1+kA*a)
+
+#Initial Conditions
+init b=0
+init m=0.0
+init a=0.25
+init eps=0.0
+
+#Numerical Specifications
+@ method=rk, tol=0.0000001, dt=0.1, total=1000.0, bounds=10000000
+@ xlo=0, xhi=1000, ylo=0, yhi=10, bell=0, Nmax=30000, NPr=50
+@ maxstore=100000, Dsmin=0.001, Ds=0.002, Dsmax=0.01, EPSL=0.00001
+@ EPSU=0.00001, EPSS=0.00001
+done

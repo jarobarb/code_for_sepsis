@@ -1,0 +1,49 @@
+File: model.ode 
+
+ Equations... 
+dB/dT=D(T)+K1*B*(1-(B/(B_INFY/BS)))-((K5*B*M)/(1+KA*A))-(KBL*SL*B)/(MUL+KLB*B*BS)
+dM/dT=(NU1*(KM*M+KB*C1*BS*B+KEPSILON*EPS))/((NU2+KM*M+KB*C1*BS*B+KEPSILON*EPS)*(1+KA*A))-MUM*M
+dA/dT=SA+(A1*(M+KAMEPS*EPS)/((1+M+KAMEPS*EPS)*(1+KA*A)))-MUA*A
+dEPS/dT=((-EPS)/TAU)+MAX(F*M-TH,0)/(1+KA*A)
+
+User-defined functions:
+D(T) = 0  
+
+
+ Numerical parameters ...
+NJMP=1  NMESH=40 METHOD=Runge-Kutta EVEC_ITER=100 
+BVP_EPS=1e-05,BVP_TOL=1e-05,BVP_MAXIT=20 
+DT=0.1 T0=0 TRANS=0 TEND=1000 BOUND=1e+07 DELAY=0 MaxPts=4000
+EVEC_ERR=0.001, NEWT_ERR=0.001 HMIN=1e-12 HMAX=1 TOLER=0.0001 
+POIMAP=0 POIVAR=B POIPLN=0 POISGN=1 
+
+
+ Delay strings ...
+0.0
+0.0
+0.0
+0.0
+
+
+ BCs ...
+0=0
+0=0
+0=0
+0=0
+
+
+ ICs ...
+B=-6.07
+M=0.0981821474616465
+A=0.3050041364561939
+EPS=49.92852742645632
+
+
+ Parameters ...
+k1=2.252939818620023   c1=0.5   Bsource=128   nu1=0.08   
+nu2=0.12   muM=0.05   a1=0.04   muA=0.05   
+kM=0.01   kB=0.2   kepsilon=0.02   kAMEps=48   
+kBL=0.6   sL=0.005   muL=0.002   kLB=0.01   
+sA=0.0125   tau=24   kA=44.3872493024671   f=318.233194718556   
+k5=0.0128450756926777   B_infy=1.98056838468433   k_D=0.033101761350186   Bs=0.0117742436505237   
+Th=1   

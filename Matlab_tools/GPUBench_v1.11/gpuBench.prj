@@ -1,0 +1,97 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="1310803534" file="/private/tmp/gpuBenchPackage/gpuBench.prj" location="/private/tmp/gpuBenchPackage" name="gpuBench" target="target.mlapps" target-name="Package App">
+    <param.appname>gpuBench</param.appname>
+    <param.authnamewatermark>MathWorks Parallel Computing Toolbox Team</param.authnamewatermark>
+    <param.email />
+    <param.company>MathWorks</param.company>
+    <param.icon>${PROJECT_ROOT}/gpuBench_resources/icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}/gpuBench_resources/icon_48.png</file>
+      <file>${PROJECT_ROOT}/gpuBench_resources/icon_24.png</file>
+      <file>${PROJECT_ROOT}/gpuBench_resources/icon_16.png</file>
+    </param.icons>
+    <param.summary>Compare GPUs using standard numerical benchmarks in MATLAB.</param.summary>
+    <param.description>GPUBENCH times different MATLAB GPU tasks and estimates the peak performance of your GPU in floating-point operations per second (FLOP/s). It produces a detailed HTML report showing how your GPU's performance compares to pre-stored performance results from a range of other GPUs.
+
+Note that this tool is designed for comparing GPU hardware. It does not compare GPU performance across different MATLAB releases.
+
+Requires MATLAB R2013b or above and a GPU with CUDA Compute Capability 1.3 or higher.</param.description>
+    <param.screenshot>${MATLAB_ROOT}/toolbox/distcomp/internal/fileexchange/gpubench/screenshot.png</param.screenshot>
+    <param.version>1.11</param.version>
+    <param.products.name>
+      <item>MATLAB</item>
+      <item>Parallel Computing Toolbox</item>
+    </param.products.name>
+    <param.products.id>
+      <item>-1</item>
+      <item>-1</item>
+    </param.products.id>
+    <param.products.version>
+      <item>-1</item>
+      <item>-1</item>
+    </param.products.version>
+    <param.platforms />
+    <param.output>/private/tmp/gpuBenchPackage</param.output>
+    <param.guid>941eac54-1ed1-4214-8177-66aa9855d467</param.guid>
+    <unset>
+      <param.email />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/gpuBenchLauncher.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}/+gpubench/PerformanceData.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/SummaryData.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/addGradientToAxes.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/captureFigure.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/checkMATLABVersion.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/checkPCT.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/cpuinfo.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/getDataDir.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/gpuinfo.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/isOldGraphics.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/legend.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/makeFigure.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/multiWaitbar.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/plotFLOPS.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/progressColor.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/sizeof.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/trimImage.m</file>
+      <file>${PROJECT_ROOT}/+gpubench/version.m</file>
+    </fileset.depfun>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}/README.txt</file>
+      <file>${PROJECT_ROOT}/data</file>
+      <file>${PROJECT_ROOT}/gpuBench.m</file>
+      <file>${PROJECT_ROOT}/gpuBenchReport.m</file>
+      <file>${PROJECT_ROOT}/gpuBench_resources</file>
+      <file>${PROJECT_ROOT}/license.txt</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="/private/tmp" name="gpuBenchPackage" optional="false">/private/tmp/gpuBenchPackage</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/mathworks/UK/devel/sandbox/btordoff/Bgpu/matlab</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.13.3</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

@@ -1,0 +1,30 @@
+function FRBC = myphipsi(FB,A,B,X0)
+    FRBC = FB;
+    for j=1:length(FB)
+        if (FB(j) <= X0)
+            FRBC(j) = 0;
+        elseif (FB(j) >= 1-X0)
+            FRBC(j) = 1;
+        else
+            myeps = .5;
+            temp = 1;
+            while temp >= 0
+                temp = g(0+myeps,FB(j),A,B,X0);
+                myeps = myeps/2;
+            end
+            while temp <= 0
+                temp = g(1-myeps,FB(j),A,B,X0);
+                myeps = myeps/2;
+            end
+            FRBC(j) = fzero(@g,[myeps,1-myeps],[],FB(j),A,B,X0);
+        end
+    end
+
+function y = g(FRBC,FB,A,B,X0)
+    y = FRBC;
+    for j=1:length(FRBC)
+        y(j) = logit(FRBC(j))-A-B*logit((FB-X0)/(1-2*X0));
+    end
+
+function y = logit(x)
+    y = log(x/(1-x));

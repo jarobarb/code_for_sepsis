@@ -1,0 +1,22 @@
+function [A,B,X0] = minlogit(xs,ys)
+
+global xs, ys;
+tol = 1e-6;
+ABX0vertices = [.5,.5,.5;...
+                .6,.6,.6;...
+                .5,.6,.6;...
+                .5,.5,.6];
+
+[graphs,vertices,y,iter,fail] = simplex(ABX0vertices,@f,tol);
+
+function 2norm = f(rowvec);
+
+A = rowvec(1);
+B = rowvec(2);
+X0 = rowvec(3);
+
+global xs,ys;
+
+analytic = ys;
+for j=1:length(xs)
+    analytic = FRBC = myphipsi(FB,A,B,X0)
