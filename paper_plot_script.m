@@ -1,3 +1,7 @@
+%%  %  Some initial data processing.  Need to run before making plots.
+%  Running this script/pressing F5 will process all data up until the first
+%  "return" below.  Data from previous figures may be needed for subsequent
+%  figures, so run each figure from start to finish to see them all.
 %%  This folder ignores 1.94e? data
 %  The data has uncertainties associated with it making it unsuitable for
 %  use in the calibrating data set
@@ -12,9 +16,7 @@ addpath ./Finalized_Code/
 addpath ./Matlab_tools/
 
 %%  This is where we save figures
-mydir = '..\..\..\..\Sepsis_2018\Jared_working_folder\Figures\';
-% juldir = '..\..\..\..\Sepsis_2018\Julia_working_folder\Figures\';
-mydir = '..\..\Julia_working_folder\Figures\';
+mydir = '.\';
 
 %%  Whether or not to save the pics
 save_pics = false;
@@ -73,8 +75,9 @@ if ispc, my_slash = '\'; else, my_slash = '/'; end
 %  Reads the data from the csv file (converted from the students' original
 %  xml file using plot digitizer, 1/22/2020) starting from row 7 (before
 %  that is just plot digitizer header junk)
-M = csvread(['..',my_slash,'..',my_slash,'Rat Mortality',my_slash,...
-  'Data_points.csv'],6);
+% M = csvread(['..',my_slash,'..',my_slash,'Rat Mortality',my_slash,...
+%   'Data_points.csv'],6);
+M = csvread('Rat_Mortality_Data_points.csv',6);
 
 %  Get "bacteria implanted" level estimates.   Also, renormalize.  Still
 %  not sure how best to renormalize these (there was discussion of CFUs,
@@ -162,6 +165,8 @@ inds = (mortality_data_init ~= 48) & (mortality_data_init ~= 96);
 p = anova1(bacteria_levels_init(inds),mortality_data_init(inds))
 inds = (mortality_data_init ~= 96) & (mortality_data_init ~= 72);
 p = anova1(bacteria_levels_init(inds),mortality_data_init(inds))
+
+return
 
 %%  Figure 1
 %  In version 2, we first plot the data
@@ -277,6 +282,12 @@ end
 %  the best format for Word.
 
 %%  Figure 3
+try
+  load('std_resids');
+catch
+  fdebug(param_vals);
+  load('std_resids');
+end
 %  Plot of bacterial populations vs time plus experimental measurements
 close(figure(3)); figure(3);
 xbuff = 0.11; xspan = 0.37; xgap = 0.5-(xbuff+xspan);
@@ -312,8 +323,6 @@ a = xlim; b = ylim; text(a(1)+0.014*diff(a),b(2)-0.3*diff(b),'A',...
   'FontSize',fons,'FontName',fonnam);
 
 ax2 = axes('Position',[2*xbuff+xspan+xgap,ystart,xspan,yspan]);
-
-load('std_resids');
 
 hands = normplot(standardized_residuals);
 set(hands(1),'Marker','.','MarkerSize',15);
@@ -431,7 +440,8 @@ if save_pics
   saveas(gcf,[mydir,name,'.eps']);
 end
 
-%%  Estimate damage levels at the 24,48,72,96 etc--all
+%%  Figure 5
+%  Estimate damage levels at the 24,48,72,96 etc--all
 addpath('..\Finalized_Code\');
 bscale = 1;%0.85;
 clear sols;
@@ -468,7 +478,7 @@ plot(damptsvec.d24); hold on;
 plot(damptsvec.d48); plot(damptsvec.d72); plot(damptsvec.d96);
 fprintf('Done\n');
 
-%%  Figure 5
+%%  Figure 5 actual plotting
 %  Try the easier statistic assessments that we think make sense
 %  Confusion matrix
 fignum = 5;
@@ -585,15 +595,15 @@ legend('Simulation','Experiment');
 
 close(figure(fignum)); figure(fignum);
 name = ['Figure',num2str(fignum)];
-figh = compfact*9;  %  Figure height (in inches)
+figh = compfact*3;  %  Figure height (in inches)
 figw = compfact*6;  %  Figure width (in inches)
 set(gcf,'Units','inches','Position',[1,1,figw,figh]);
 vertbump = 0.175;
-subplot(2,1,2);
+subplot(1,2,2);
 ax1 = get(gca);
 ax1h = gca;
 
-subplot(2,1,1);
+subplot(1,2,1);
 ax2 = get(gca);
 ax2h = gca;
 
@@ -609,7 +619,7 @@ end
 % ylim([0.5,1])
 xlabel('Critical damage level (\epsilon_{crit})');
 ylabel('Model prediction accuracy');
-a = xlim; b = ylim; text(a(1)+0.014*diff(a),b(2)-0.05*diff(b),'B',...
+a = xlim; b = ylim; text(a(1)+0.014*diff(a),b(2)-0.05*diff(b),'A',...
   'FontSize',fons,'FontName',fonnam);
 set(gca,'FontSize',fons,'FontName',fonnam,'LineWidth',linw);
 tmp = get(gca,'YLabel'); tmp.FontSize = fons; set(gca,'YLabel',tmp);
@@ -620,24 +630,23 @@ for ysc = 1:numel(ys)
   plot(xlim,ys(ysc)*[1 1],'k:');
 end
 
-% close(figure(3)); figure(3);
-subplot(2,1,2);
+subplot(1,2,2);
 plot(FPR,TPR,'.-r','LineWidth',linw);
 xlabel('False Positive Rate'); ylabel('True Positive Rate');
 % title(sprintf('Area Under Curve = %3.4g',trapz(FPR,TPR)));
 fprintf('Area Under Curve = %3.4g',trapz(FPR,TPR));
-a = xlim; b = ylim; text(a(1)+0.014*diff(a),b(2)-0.05*diff(b),'A',...
+a = xlim; b = ylim; text(a(1)+0.014*diff(a),b(2)-0.05*diff(b),'B',...
   'FontSize',fons,'FontName',fonnam);
 set(gca,'FontSize',fons,'FontName',fonnam,'LineWidth',linw);
 tmp = get(gca,'YLabel'); tmp.FontSize = fons; set(gca,'YLabel',tmp);
 tmp = get(gca,'XLabel'); tmp.FontSize = fons; set(gca,'XLabel',tmp);
 ys = get(gca,'YTick');
 
-tmppos = ax1.Position;
-set(ax1h,'Position',[tmppos(1),tmppos(2),tmppos(3),tmppos(4)+vertbump]);
-set(ax1h,'YTick',0:0.2:1);
-tmppos = ax2.Position;
-set(ax2h,'Position',[tmppos(1),tmppos(2)+0.75*vertbump,tmppos(3),tmppos(4)-0.5*vertbump]);
+% tmppos = ax1.Position;
+% set(ax1h,'Position',[tmppos(1),tmppos(2),tmppos(3),tmppos(4)+vertbump]);
+% set(ax1h,'YTick',0:0.2:1);
+% tmppos = ax2.Position;
+% set(ax2h,'Position',[tmppos(1),tmppos(2)+0.75*vertbump,tmppos(3),tmppos(4)-0.5*vertbump]);
 axis equal
 set(gcf,'renderer','painters');
 
@@ -646,7 +655,6 @@ if save_pics
   saveas(gcf,[mydir,name,'.emf']);
   saveas(gcf,[mydir,name,'.eps']);
 end
-return
 
 %%  Figure 6
 fignum = 6;
@@ -881,22 +889,21 @@ if save_pics
   saveas(gcf,[mydir,name,'.eps']);
 end
 
-return
-
 %%  Figure 8:  calculations for the grids
 %  See below sections for prettier renderings of the contours.  For
 %  prettier contours increase either the initial level of refinement
-%  (ini_ref) or the total number of refinements made (nref)
+%  (ini_ref) or the total number of refinements made (nref).  It takes a
+%  long time for larger nref.  For paper, nref = 9.
 close(figure(1001)); figure(1001);
 iniref = 2;
-nref = 2;
-ns.k1 = [1,1.5];
+nref = 8;
+% ns.k1 = [1,1.5];
 ns.kBl = [0.4,0.7];
 ns.nu1 = [0,0.16];
 nBs.kBl = [0,550];
 nBs.nu1 = nBs.kBl;
 
-cont_names = {'k1','kBl','nu1'};
+cont_names = {'kBl','nu1'};
 
 for pc = 1:numel(cont_names)
   pn = cont_names{pc};
@@ -910,12 +917,12 @@ for pc = 1:numel(cont_names)
     'f',f.(pn),'ini_ref',iniref,'nref',nref,'noutputs',2);
 end
 
-%%  Figure 8
+%%  Figure 8:  Actual plots
 %  -alternate make a plot
 zoomin = false;
 fignum = 8; close(figure(fignum)); figure(fignum);
 tmppos = get(gcf,'Position');
-set(gcf,'Units','inches','Position',[1,1,3,9]);
+set(gcf,'Units','inches','Position',[1,1,6,3]);
 % set(gcf,'Units','Inches','Position',1+[0 0 compfact*figw/2 ...
 %   compfact*3*figh/2]);
 mycols = 'gbr';
@@ -934,7 +941,7 @@ end
 
 if ~zoomin, rows = 1; else rows = 2; end
 for cc1 = 1:numel(cont_names)
-  ax{cc1} = subplot(3,1,cc1);
+  ax{cc1} = subplot(1,2,cc1);
   for cc2 = 1:numel(cont{cc1})
     [~,cx,cy] = extract_contours(cont{cc1}{cc2});
     tmpcell = {};
