@@ -892,18 +892,19 @@ end
 %%  Figure 8:  calculations for the grids
 %  See below sections for prettier renderings of the contours.  For
 %  prettier contours increase either the initial level of refinement
-%  (ini_ref) or the total number of refinements made (nref).  It takes a
-%  long time for larger nref.  For paper, nref = 9.
+%  (ini_ref) or the total number of refinements made (nref).  For the paper
+%  ini_ref = 2, nref = 8;
 close(figure(1001)); figure(1001);
 iniref = 2;
 nref = 8;
-% ns.k1 = [1,1.5];
+ns.k1 = [1,1.5];
 ns.kBl = [0.4,0.7];
 ns.nu1 = [0,0.16];
 nBs.kBl = [0,550];
 nBs.nu1 = nBs.kBl;
+nBs.k1 = nBs.kBl;
 
-cont_names = {'kBl','nu1'};
+cont_names = {'k1','kBl','nu1'};
 
 for pc = 1:numel(cont_names)
   pn = cont_names{pc};
@@ -917,15 +918,15 @@ for pc = 1:numel(cont_names)
     'f',f.(pn),'ini_ref',iniref,'nref',nref,'noutputs',2);
 end
 
-%%  Figure 8:  Actual plots
+%%  Figure 8:  Makes plots
 %  -alternate make a plot
 zoomin = false;
 fignum = 8; close(figure(fignum)); figure(fignum);
 tmppos = get(gcf,'Position');
-set(gcf,'Units','inches','Position',[1,1,6,3]);
+set(gcf,'Units','inches','Position',[1,1,3,9]);
 % set(gcf,'Units','Inches','Position',1+[0 0 compfact*figw/2 ...
 %   compfact*3*figh/2]);
-mycols = 'gbr';
+mycols = 'cbr';
 
 for cnc = 1:numel(cont_names)
   pn = cont_names{cnc};
@@ -941,7 +942,7 @@ end
 
 if ~zoomin, rows = 1; else rows = 2; end
 for cc1 = 1:numel(cont_names)
-  ax{cc1} = subplot(1,2,cc1);
+  ax{cc1} = subplot(3,1,cc1);
   for cc2 = 1:numel(cont{cc1})
     [~,cx,cy] = extract_contours(cont{cc1}{cc2});
     tmpcell = {};
@@ -955,7 +956,7 @@ for cc1 = 1:numel(cont_names)
   end
 end
 
-%%  Decorate it
+%%  Figure 8:  Decorate it
 %  ybump same as for figure 4
 %  xbump changed
 %  Bsources hard-wired in for now
