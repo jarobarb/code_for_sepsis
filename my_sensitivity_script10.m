@@ -9,7 +9,6 @@ addpath ../optimization/
 addpath ../Finalized_Code/
 %  This is for comparing structures...otherwise, not needed.
 addpath ../../../../../Matlab_tools/
-return
 
 %%  %  List of many different fits.  Go to the last one.
 %%  Original values from V1
