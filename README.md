@@ -11,3 +11,6 @@ To reproduce table S3 and collinearity calculations, look at find_sensitivites.m
 
 Parameter estimation
 To run the parameter estimation code, look at my_sensitivity_script10.m
+
+Data/Supplemental information
+The data used for this study can be found in the Supplementary Material document.  The document also includes our sensitivity analysis.
