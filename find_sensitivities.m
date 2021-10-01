@@ -221,6 +221,7 @@ inds = ismember(klabelsimp,{'kBl','sl'});
   'util',reg_util,'parcomp',false,'frac',sqrt(eps),'std',0);
 
 %%  Relative sensitivities (using all "important" variables)
+fprintf('Sensitivities list:\n');
 [~,inds] = sort(abs(s_struc.smsqr));
 % inds = 1:numel(kimp);
 for j = 1:numel(kimp)
@@ -333,6 +334,8 @@ for cc = 2:maxcombos
     fprintf('\n');
   end
 end
+
+return
 
 %%  Calculate one collinearity index/fitting capability
 inds = find(ismember(klabelsimp,klabelsdef));
